@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sound Timer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+    .counter, .countdown {
+      font-size: 24px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Sound Every 60 Seconds</h1>
+  <div class="counter">Sound Played: <span id="playCount">0</span> times</div>
+  <div class="countdown">Next sound in: <span id="countdown">60</span> seconds</div>
+
+  <audio id="sound" src="sound.mp3" preload="auto"></audio>
+
+  <script>
+    const intervalSeconds = 60;
+    let timeLeft = intervalSeconds;
+    let playCount = 0;
+
+    const countdownEl = document.getElementById('countdown');
+    const playCountEl = document.getElementById('playCount');
+    const sound = document.getElementById('sound');
+
+    function playSound() {
+      sound.play();
+      playCount++;
+      playCountEl.textContent = playCount;
+      timeLeft = intervalSeconds;
+    }
+
+    // Initial delay before the first sound
+    setTimeout(playSound, intervalSeconds * 1000);
+
+    // Start ticking down each second
+    setInterval(() => {
+      timeLeft--;
+      countdownEl.textContent = timeLeft;
+
+      if (timeLeft <= 0) {
+        playSound();
+      }
+    }, 1000);
+  </script>
+
+</body>
+</html>
