@@ -49,7 +49,58 @@
 </head>
 <body>
 
-  <h1>XXX__   M I N U U T T I K A L J A  __XXX</h1>
+  <h1>XXX   M I N U U T T I K A L J A   XXX</h1>
 
   <div class="counter">Shotteja juotu: <span id="playCount">0</span> kpl</div>
-  <div class="countdown">Seuraava shotti: <span id=
+  <div class="countdown">Seuraava shotti: <span id="countdown">60</span> sekuntia</div>
+
+  <button id="playNowBtn">🍻 Skippaa 🍻</button>
+
+  <audio id="sound" src="sound.wav" preload="auto"></audio>
+  <img id="flashImage" src="shotti.png" alt="Shotti!">
+
+  <script>
+    const intervalSeconds = 60;
+    let timeLeft = intervalSeconds;
+    let playCount = 0;
+
+    const countdownEl = document.getElementById('countdown');
+    const playCountEl = document.getElementById('playCount');
+    const sound = document.getElementById('sound');
+    const playNowBtn = document.getElementById('playNowBtn');
+    const flashImage = document.getElementById('flashImage');
+
+    function playSound() {
+      sound.currentTime = 0;
+      sound.play();
+      playCount++;
+      playCountEl.textContent = playCount;
+      timeLeft = intervalSeconds;
+
+      // Flash image logic
+      flashImage.classList.remove('fade-out');
+      void flashImage.offsetWidth; // force reflow to reset transition
+      flashImage.classList.add('visible');
+
+      setTimeout(() => {
+        flashImage.classList.remove('visible');
+        flashImage.classList.add('fade-out');
+      }, 50); // blink in, then fade
+    }
+
+    // Auto-timer
+    setInterval(() => {
+      timeLeft--;
+      countdownEl.textContent = timeLeft;
+
+      if (timeLeft <= 0) {
+        playSound();
+      }
+    }, 1000);
+
+    // Manual shot
+    playNowBtn.addEventListener('click', playSound);
+  </script>
+
+</body>
+</html>
