@@ -28,68 +28,28 @@
       left: 50%;
       transform: translate(-50%, -50%);
       opacity: 0;
-      transition: opacity 8s ease-out;
       max-width: 60%;
       max-height: 60%;
       pointer-events: none;
       z-index: 999;
     }
 
+    /* Add fade-out when fading */
+    #flashImage.fade-out {
+      transition: opacity 4s ease-out;
+      opacity: 0;
+    }
+
+    /* When showing image (instant blink) */
     #flashImage.visible {
+      transition: none;
       opacity: 1;
     }
   </style>
 </head>
 <body>
 
-  <h1>XXX   M I N U U T T I K A L J A   XXX</h1>
+  <h1>XXX__   M I N U U T T I K A L J A  __XXX</h1>
 
   <div class="counter">Shotteja juotu: <span id="playCount">0</span> kpl</div>
-  <div class="countdown">Seuraava shotti: <span id="countdown">60</span> sekuntia</div>
-
-  <button id="playNowBtn">🍻 Skippaa 🍻</button>
-
-  <audio id="sound" src="sound.wav" preload="auto"></audio>
-  <img id="flashImage" src="shotti.jpg" alt="Shotti!">
-
-  <script>
-    const intervalSeconds = 60;
-    let timeLeft = intervalSeconds;
-    let playCount = 0;
-
-    const countdownEl = document.getElementById('countdown');
-    const playCountEl = document.getElementById('playCount');
-    const sound = document.getElementById('sound');
-    const playNowBtn = document.getElementById('playNowBtn');
-    const flashImage = document.getElementById('flashImage');
-
-    function playSound() {
-      sound.currentTime = 0;
-      sound.play();
-      playCount++;
-      playCountEl.textContent = playCount;
-      timeLeft = intervalSeconds;
-
-      // Flash the image
-      flashImage.classList.add('visible');
-      setTimeout(() => {
-        flashImage.classList.remove('visible');
-      }, 8000);
-    }
-
-    // Automatic countdown
-    setInterval(() => {
-      timeLeft--;
-      countdownEl.textContent = timeLeft;
-
-      if (timeLeft <= 0) {
-        playSound();
-      }
-    }, 1000);
-
-    // Manual shot button
-    playNowBtn.addEventListener('click', playSound);
-  </script>
-
-</body>
-</html>
+  <div class="countdown">Seuraava shotti: <span id=
